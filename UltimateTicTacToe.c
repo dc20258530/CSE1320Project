@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <time.h>
 
-char board[9][9];
+char board[9][3][3];
 
 void resetBoard();
 void printBoard();
@@ -18,9 +18,12 @@ void resetBoard()
 {
     for(int i = 0; i < 9; i++)
     {
-        for(int j = 0; j < 9; j++)
+        for(int j = 0; j < 3; j++)
         {
-            board[i][j] = ' ';
+            for(int k = 0; k < 3; k++)
+            {
+                board[i][j][k] = ' ';
+            }
         }
     }
 }
@@ -38,7 +41,6 @@ void printBoard()
     {
         for(int j = R; j < C; j++)
         {
-            //printf("%d", j);
             printf("  %c  |  %c  |  %c  /  %c  |  %c  |  %c  /  %c  |  %c  |  %c  \n",
                 board[j][0], board[j][1], board[j][2], board[j][3],
                 board[j][4], board[j][5], board[j][6], board[j][7], board[j][8]);
