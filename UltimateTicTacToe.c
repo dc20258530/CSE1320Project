@@ -139,6 +139,24 @@ void printInstructions()
     printf(" - X: Player 1's symbol.\n");
     printf(" - O: Player 2's symbol.\n\n");
 
+    printf("Board: \n");
+    int i = 0;
+    while (i < 9)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf ("  %c  |  %c  |  %c  /  %c  |  %c  |  %c  /  %c  |  %c  |  %c  \n", 
+            board[i][j][0], board[i][j][1], board[i][j][2], board[i+1][j][0], 
+            board[i+1][j][1], board[i+1][j][2], board[i+2][j][0], board[i+2][j][1], 
+            board[i+2][j][2]);
+            if (j != 2)
+                printf ("-----|-----|-----/-----|-----|-----/-----|-----|-----\n");
+        }
+        if (i < 6)
+            printf ("=====|=====|=====/=====|=====|=====/=====|=====|=====\n");
+        i += 3;
+    }
+
     printf("Enjoy playing Ultimate Tic Tac Toe!\n");
 }
 
