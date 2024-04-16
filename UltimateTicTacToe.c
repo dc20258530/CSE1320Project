@@ -127,6 +127,13 @@ char checkMiniWinner()
         {
             if(board[i][j][0] == board[i][j][1] && board[i][j][0] == board[i][j][2])
             {
+                for (int a = 0; a < 3; a++)
+                {
+                    for (int b = 0; b < 3; b++)
+                    {
+                        board[i][a][b] = board[i][j][0];
+                    }
+                }
                 return board[i][j][0];
             }
         }
