@@ -158,7 +158,6 @@ void player2Move(int b)
 {
     int row;
     int col;
-    int b;
 
     do
     {
