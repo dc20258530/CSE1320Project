@@ -3,6 +3,12 @@
 #include <ctype.h>
 #include <time.h>
 
+#define BOARD 9
+#define ROW 3
+#define COL 3
+#define PLAYER1 'X'
+#define PLAYER2 'O'
+
 char board[9][3][3];
 
 void resetBoard();
@@ -11,7 +17,14 @@ char checkMiniWinner();
 
 int main()
 {
+    int quit = 1;
     resetBoard();
+    printf("Enter board #(1-9)");
+    scanf("%d", &board);
+    printMenu();
+    do{
+        
+    }while(quit!=0)
     printBoard();
 }
 
@@ -28,6 +41,8 @@ void resetBoard()
         }
     }
 }
+
+
 
 void printBoard()
 {
@@ -47,6 +62,62 @@ void printBoard()
             printf ("=====|=====|=====/=====|=====|=====/=====|=====|=====\n");
         i += 3;
     }
+}
+<<<<<<< HEAD
+
+void player1Move(int b)
+{
+    int row;
+    int col;
+
+    do
+    {
+        /*Asks the user, row, and column to place their X or O
+          If the spot is available it places, else its an invalid move and they try again*/
+        printf("Enter row #(1-3): ");
+        scanf("%d", &row);
+        row--;
+        printf("Enter column #(1-3): ");
+        scanf("%d", &col);
+        col--;
+        if(board[b][row][col] != ' ')
+        {
+            printf("Invalid move!\n");
+        }
+        else
+        {
+            board[b][row][col] = PLAYER1;
+            break;
+        }
+    } 
+    while (board[b][row][col] != ' ');
+}
+
+void player2Move(int board)
+{
+    int row;
+    int col;
+    
+
+    do
+    {
+        printf("Enter row #(1-3): ");
+        scanf("%d", &row);
+        row--;
+        printf("Enter column #(1-3): ");
+        scanf("%d", &col);
+        col--;
+        if(board[b][row][col] != ' ')
+        {
+            printf("Invalid move!\n");
+        }
+        else
+        {
+            board[b][row][col] = PLAYER2;
+            break;
+        }
+    } 
+    while (board[b][row][col] != ' ');
 }
 
 char checkMiniWinner()
@@ -87,3 +158,4 @@ char checkMiniWinner()
     }
     return ' ';
 }
+>>>>>>> 7fd9e2d1ad14ab6122bbc08d9c42aaa89c0b46e7
