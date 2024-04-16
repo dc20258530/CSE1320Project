@@ -23,7 +23,7 @@ int main()
 {
     int quit = 1, b;
     resetBoard();
-    printInstructions();
+    printMenu();
 
     printf("Player 1 enter a board #(1-9): ");
     scanf("%d", &b);
@@ -146,7 +146,6 @@ void player2Move(int b)
 {
     int row;
     int col;
-    int b;
 
     do
     {
