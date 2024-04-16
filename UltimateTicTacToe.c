@@ -22,9 +22,11 @@ int main()
     printf("Enter board #(1-9)");
     scanf("%d", &board);
     printMenu();
-    do{
+    do
+    {
         
-    }while(quit!=0)
+    }
+    while(quit! = 0);
     printBoard();
 }
 
@@ -41,8 +43,6 @@ void resetBoard()
         }
     }
 }
-
-
 
 void printBoard()
 {
@@ -63,7 +63,6 @@ void printBoard()
         i += 3;
     }
 }
-<<<<<<< HEAD
 
 void player1Move(int b)
 {
@@ -158,4 +157,3 @@ char checkMiniWinner()
     }
     return ' ';
 }
->>>>>>> 7fd9e2d1ad14ab6122bbc08d9c42aaa89c0b46e7
