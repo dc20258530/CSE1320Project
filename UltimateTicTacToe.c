@@ -13,36 +13,26 @@ char board[9][3][3];
 
 void resetBoard();
 void printBoard();
+void player1Move(int b);
+void player2Move(int b);
 void printInstructions();
-void player1Move();
-void player2Move();
 char checkMiniWinner();
 
 int main()
 {
     int quit = 1, b;
     resetBoard();
-    int choice;
+    printMenu();
+
+    printf("Player 1 enter a board #(1-9): ");
+    scanf("%d", &b);
+
     do
     {
-        printMenu();
-        scanf("%d", &choice);
-
-        switch(choice){
-            case 1 :
-                break;
-            case 2 : 
-                printInstructions();
-                break;
-            case 3 :
-                printf("\nExiting...\n");
-                exit(0);
-            default :
-                printf("\nInvalid choice. Please enter a valid option.\n")
-        }
+        printBoard();
+        player1Move(b);
     }
     while(quit != 0);
-    printBoard();
 }
 
 void resetBoard()
@@ -186,6 +176,13 @@ char checkMiniWinner()
         {
             if(board[i][j][0] == board[i][j][1] && board[i][j][0] == board[i][j][2])
             {
+                /*for (int a = 0; a < 3; a++)
+                {
+                    for (int b = 0; b < 3; b++)
+                    {
+                        board[i][a][b] = board[i][j][0];
+                    }
+                }*/
                 return board[i][j][0];
             }
         }
