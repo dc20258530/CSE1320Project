@@ -19,9 +19,9 @@ int main()
 {
     int quit = 1, b;
     resetBoard();
-    printf("Enter board #(1-9)");
+    printf("Enter board #(1-9): ");
     scanf("%d", &b);
-    printMenu();
+    //printMenu();
     do
     {
         
@@ -92,12 +92,11 @@ void player1Move(int b)
     while (board[b][row][col] != ' ');
 }
 
-void player2Move(int board)
+void player2Move(int b)
 {
     int row;
     int col;
     
-
     do
     {
         printf("Enter row #(1-3): ");
