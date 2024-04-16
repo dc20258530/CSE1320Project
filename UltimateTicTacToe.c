@@ -23,15 +23,27 @@ int main()
 {
     int quit = 1, b;
     resetBoard();
-    printInstructions();
-
-    printf("Player 1 enter a board #(1-9): ");
-    scanf("%d", &b);
-
     do
     {
-        printBoard();
-        player1Move(b);
+        printMenu();
+        int choice;
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1 :
+                //playGameFunction;
+                break;
+            case 2 :
+                printInstructions();
+                break;
+            case 3 :
+                printf("\nExiting... \n");
+                exit(0);
+            default : 
+                printf("\nInvalid choice. Please enter a valid option.\n");
+        }
+        
     }
     while(quit != 0);
 }
