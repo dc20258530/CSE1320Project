@@ -30,30 +30,6 @@ void resetBoard()
 
 void printBoard()
 {
-    /*int R = 0, C = 3;
-    for (int i = 0; i < 3; i++)
-    {
-        for(int j = R; j < C; j++)
-        {
-            printf("  %c  |  %c  |  %c  /  %c  |  %c  |  %c  /  %c  |  %c  |  %c  \n",
-                board[j][0], board[j][1], board[j][2], board[j][3],
-                board[j][4], board[j][5], board[j][6], board[j][7], board[j][8]);
-            if(j == 2 || j == 5)
-            {
-                printf("=====|=====|=====/=====|=====|=====/=====|=====|=====\n");
-            }
-            else if(j == 8)
-            {
-                break;
-            }
-            else
-            {
-                printf("-----|-----|-----/-----|-----|-----/-----|-----|-----\n");
-            }
-        }
-        C += 3;
-        R += 3;
-    }*/
     int i = 0;
     while (i < 9)
     {
