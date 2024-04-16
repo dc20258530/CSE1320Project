@@ -13,18 +13,33 @@ char board[9][3][3];
 
 void resetBoard();
 void printBoard();
+void printInstructions();
+void player1Move();
+void player2Move();
 char checkMiniWinner();
 
 int main()
 {
     int quit = 1, b;
     resetBoard();
-    printf("Enter board #(1-9): ");
-    scanf("%d", &b);
-    //printMenu();
+    int choice;
     do
     {
-        
+        printMenu();
+        scanf("%d", &choice);
+
+        switch(choice){
+            case 1 :
+                break;
+            case 2 : 
+                printInstructions();
+                break;
+            case 3 :
+                printf("\nExiting...\n");
+                exit(0);
+            default :
+                printf("\nInvalid choice. Please enter a valid option.\n")
+        }
     }
     while(quit != 0);
     printBoard();
@@ -92,11 +107,56 @@ void player1Move(int b)
     while (board[b][row][col] != ' ');
 }
 
+void printMenu()
+{
+    printf("************* Menu *************\n");
+    printf("[1] PLAY\n");
+    printf("[2] Instructions\n");
+    printf("[3] Exit\n");
+    printf("Select an option");
+    printf("********************************\n");
+}
+
+void printInstructions() 
+{
+    printf("\nInstructions for Ultimate Tic Tac Toe:\n");
+    printf("----------------------------------------\n");
+    printf("Objective:\n");
+    printf("The objective of Ultimate Tic Tac Toe is to win three traditional Tic Tac Toe games\n");
+    printf("in a row, column, or diagonal on the global board.\n\n");
+    
+    printf("Rules:\n");
+    printf("1. Ultimate Tic Tac Toe is played on a 3x3 grid of 3x3 grids (total 9 boards).\n");
+    printf("2. Players take turns to place their symbol (X or O) in an empty cell.\n");
+    printf("3. The cell chosen determines the board the opponent must play on next.\n");
+    printf("4. To win a local board, a player must win three traditional Tic Tac Toe games.\n");
+    printf("5. Once a local board is won or drawn, it can't be played on again.\n");
+    printf("6. If a move sends the opponent to a finished board, the player can choose\n");
+    printf("   any unfinished board to play on.\n\n");
+
+    printf("Gameplay:\n");
+    printf("1. Player 1 (X) starts the game.\n");
+    printf("2. Each player takes turns making moves until one player wins or the game draws.\n");
+    printf("3. If a player wins a local board, they mark the corresponding cell on the global board.\n");
+    printf("4. The first player to win three local boards in a row, column, or diagonal on the\n");
+    printf("   global board wins the game.\n\n");
+
+    printf("Legend:\n");
+    printf(" - Local Board: A 3x3 grid where players make their moves.\n");
+    printf(" - Global Board: A 3x3 grid where the results of the local boards are shown.\n");
+    printf("   A cell in the global board is marked when a player wins a local board.\n");
+    printf(" - X: Player 1's symbol.\n");
+    printf(" - O: Player 2's symbol.\n\n");
+
+    printf("Enjoy playing Ultimate Tic Tac Toe!\n");
+}
+
 void player2Move(int b)
 {
     int row;
     int col;
-    
+    int b;
+
     do
     {
         printf("Enter row #(1-3): ");
