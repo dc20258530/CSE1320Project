@@ -26,7 +26,7 @@ int main()
     {
         
     }
-    while(quit! = 0);
+    while(quit != 0);
     printBoard();
 }
 
