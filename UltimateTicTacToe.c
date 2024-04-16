@@ -20,7 +20,7 @@ int main()
     int quit = 1;
     resetBoard();
     printf("Enter board #(1-9)");
-    scanf("%d", &board);
+    scanf("%d", &b);
     printMenu();
     do
     {
