@@ -17,7 +17,7 @@ char checkMiniWinner();
 
 int main()
 {
-    int quit = 1;
+    int quit = 1, b;
     resetBoard();
     printf("Enter board #(1-9)");
     scanf("%d", &b);
