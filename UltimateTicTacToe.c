@@ -7,6 +7,7 @@ char board[9][3][3];
 
 void resetBoard();
 void printBoard();
+char checkMiniWinner();
 
 int main()
 {
@@ -46,4 +47,43 @@ void printBoard()
             printf ("=====|=====|=====/=====|=====|=====/=====|=====|=====\n");
         i += 3;
     }
+}
+
+char checkMiniWinner()
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            if(board[i][j][0] == board[i][j][1] && board[i][j][0] == board[i][j][2])
+            {
+                return board[i][j][0];
+            }
+        }
+    }
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if(board[i][0][j] == board[i][1][j] && board[i][0][j] == board[i][2][j])
+            {
+                return board[i][0][j];
+            }
+        }
+    }
+    for (int i = 0; i < 9; i++)
+    {
+        if(board[i][0][0] == board[i][1][1] && board[i][0][0] == board[i][2][2])
+        {
+            return board[i][0][0];
+        }
+    }
+    for (int i = 0; i < 9; i++)
+    {
+        if(board[i][0][2] == board[i][1][1] && board[i][0][2] == board[i][2][0])
+        {
+            return board[i][0][2];
+        }
+    }
+    return ' ';
 }
