@@ -19,15 +19,16 @@ int main()
 {
     int quit = 1, b;
     resetBoard();
-    printf("Enter board #(1-9): ");
+    printMenu();
+
+    printf("Player 1 enter a board #(1-9): ");
     scanf("%d", &b);
-    //printMenu();
+
     do
     {
-        
+        printBoard();
     }
     while(quit != 0);
-    printBoard();
 }
 
 void resetBoard()
