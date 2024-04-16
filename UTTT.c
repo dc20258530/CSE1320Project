@@ -7,8 +7,11 @@
 #define COLS 9
 
 typedef char Board[ROWS][COLS];
+// create the array for the tictactoe board 
 typedef char MetaBoard[ROWS / 3][COLS / 3];
+// create the mini boards to help identify winner of each space
 typedef enum {VALID, NOT_A_DIGIT, NOT_IN_BOARD, SPACE_OCCUPIED, OUT_OF_BOUNDS} MoveStatus;
+// enum created to be used later in main to identify input from user
 
 void fillSubBoard(Board board, int x, int y, char c)
 {
@@ -86,7 +89,8 @@ static int checkMeta(MetaBoard meta)
         // main logic to check if a subboard has a winner
         if (meta[startx][starty] != '-' &&
             meta[startx][starty] == meta[startx + deltax][starty + deltay] &&
-            meta[startx][starty] == meta[startx + deltax + deltax][starty + deltay + deltay]) return 1;
+            meta[startx][starty] == meta[startx + deltax + deltax][starty + deltay + deltay]) 
+            return 1;
     }
     return 0;
 }
@@ -198,7 +202,8 @@ int main(void)
     }
     printBoard(board);
 
-    if(!winner) printf("The game is a draw\n");
+    if(!winner) 
+        printf("The game is a draw\n");
     else printf("Player %d has won\n", winner);
 
     return 0;
