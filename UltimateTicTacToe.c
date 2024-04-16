@@ -14,7 +14,7 @@ char board[9][3][3];
 void resetBoard();
 void printBoard();
 void player1Move(int b);
-void plpayer2Move(int b);
+void player2Move(int b);
 char checkMiniWinner();
 
 int main()
