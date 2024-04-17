@@ -18,11 +18,13 @@ void player1Move(int b);
 void player2Move(int b);
 void printMenu();
 void printInstructions();
+int checkFreeSpaces();
 char checkMiniWinner();
 
 int main()
 {
     int quit = 1, b;
+    char winner = ' ';
     resetBoard();
     do
     {
@@ -46,12 +48,17 @@ int main()
         }
     }
     while(quit != 0);
-    printReferenceBoard();
-    do
-    {
 
+    printReferenceBoard();
+    printf ("Player 1 enter the board # desired: ");
+    scanf ("%d", &b);
+    b--;
+    while(winner == ' ' && checkFreeSpaces() != 0)
+    {
+        printBoard();
+
+        player1Move(b);
     }
-    while(1);
 }
 
 void resetBoard()
@@ -91,20 +98,22 @@ void printBoard()
 void printReferenceBoard()
 {
     int i = 0;
+    printf ("  1     2     3     1     2     3     1     2     3\n");
     while (i < 9)
     {
         for (int j = 0; j < 3; j++)
         {
-            if (j != 1 || j != 4)
-                printf ("     |     |     /     |     |     /     |     |     \n");
+            printf ("%d", j+1);
+            if (j != 1)
+                printf ("      |     |     /     |     |     /     |     |     \n");
             else 
-                printf ("     |  %d  |     /     |  %d  |     /     |  %d  |     \n",
+                printf ("      |  %d  |     /     |  %d  |     /     |  %d  |     \n",
                     i+1, i+2, i+3);
             if (j != 2)
-                printf ("-----|-----|-----/-----|-----|-----/-----|-----|-----\n");
+                printf ("  -----|-----|-----/-----|-----|-----/-----|-----|-----\n");
         }
         if (i < 6)
-            printf ("=====|=====|=====/=====|=====|=====/=====|=====|=====\n");
+            printf ("  =====|=====|=====/=====|=====|=====/=====|=====|=====\n");
         i += 3;
     }
 }
@@ -205,6 +214,27 @@ void player2Move(int b)
         }
     } 
     while (board[b][row][col] != ' ');
+}
+
+int checkFreeSpaces()
+{
+    int freeSpaces = 81;
+
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                if(board[i][j][k] != ' ')
+                {
+                    freeSpaces--;
+                }
+            }
+        }
+    }
+
+    return freeSpaces;
 }
 
 char checkMiniWinner()
