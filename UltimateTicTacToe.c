@@ -198,7 +198,7 @@ void player1Move(int b)
 
 void printMenu()
 {
-    printf("************* Menu *************\n");
+    printf("\n\n\n\n************* Menu *************\n");
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
     printf("[3] Exit\n");
