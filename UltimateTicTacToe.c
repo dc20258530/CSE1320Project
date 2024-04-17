@@ -224,7 +224,7 @@ void player2Move(int b)
 
 void fillSubBoard(int i)
 {
-    char miniWinner = checkMiniWinner(i);
+    char miniWinner = checkMiniWinner();
     printf("%d", i);
     if (miniWinner == 'X' || miniWinner == 'O') 
     {
@@ -259,8 +259,9 @@ int checkFreeSpaces()
     return freeSpaces;
 }
 
-char checkMiniWinner(int i)
+char checkMiniWinner()
 {
+    int i;
     for (i = 0; i < 9; i++)
     {
         for(int j = 0; j < 3; j++)
@@ -268,7 +269,6 @@ char checkMiniWinner(int i)
             if(board[i][j][0] != ' ' && board[i][j][0] == board[i][j][1] && 
                 board[i][j][0] == board[i][j][2])
             {
-
                 return board[i][j][0];
             }
         }
