@@ -20,6 +20,8 @@ void player2Move(int b);
 void printMenu();
 void printInstructions();
 void fillSubBoard();
+void saveGameState(const char* filename);
+void loadGameState(const char* filename);
 int checkFreeSpaces();
 char checkMiniWinner();
 
@@ -102,6 +104,7 @@ void printBoard()
     }
 }
 
+void saveGameState(const char* filename){
 void save_game_state(const char* filename, char[9][3][3]* board)
 {
     FILE* file = fopen(filename, "wb");
