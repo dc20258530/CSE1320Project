@@ -105,9 +105,12 @@ void printBoard()
 }
 
 void saveGameState(const char* filename){
+void save_game_state(const char* filename, char[9][3][3]* board)
+{
     FILE* file = fopen(filename, "wb");
-    if(file != NULL){
-        fwrite(board, sizeof(board), 1, file);
+    if(file != NULL)
+    {
+        fwrite(board, sizeof(UltimateTicTacToeBoard), 1, file);
         fclose(file);
     }else
     {
@@ -115,12 +118,16 @@ void saveGameState(const char* filename){
     }
 }
 
-void loadGameState(const char* fileName){
-    FILE* file = fopen(fileName, "rb");
-    if(file != NULL) {
+void loadGmaeState(const char* fileName, char[9][3][3]* board)
+{
+    File* file = fopen(fileName, "rb");
+    if(file != NULL) 
+    {
         fread(board, sizeof(board), 1, file);
         fclose(file);
-    } else {
+    } 
+    else 
+    {
         printf("Error: Unable to open file for reading.\n");
     }
 }
