@@ -242,26 +242,17 @@ void player2Move(int b)
     while (board[b][row][col] != ' ');
 }
 
-void fillSubBoard()
+void fillSubBoard(int i)
 {
-    int i;
-    if (checkMiniWinner(i) == 'X')
+    char miniWinner = checkMiniWinner(i);
+    printf("%d", i);
+    if (miniWinner == 'X' || miniWinner == 'O') 
     {
-        for (int a = 0; a < 3; a++)
+        for (int a = 0; a < 3; a++) 
         {
-            for (int b = 0; b < 3; b++)
+            for (int b = 0; b < 3; b++) 
             {
-                board[i][a][b] = 'X';
-            }
-        }
-    }
-    if (checkMiniWinner(i) == 'O')
-    {
-        for (int a = 0; a < 3; a++)
-        {
-            for (int b = 0; b < 3; b++)
-            {
-                board[i][a][b] = 'O';
+                board[i][a][b] = miniWinner;
             }
         }
     }
@@ -294,16 +285,10 @@ char checkMiniWinner(int i)
     {
         for(int j = 0; j < 3; j++)
         {
-            if(board[i][j][0] == board[i][j][1] && board[i][j][0] == board[i][j][2])
+            if(board[i][j][0] != ' ' && board[i][j][0] == board[i][j][1] && 
+                board[i][j][0] == board[i][j][2])
             {
-                /*for (int a = 0; a < 3; a++)
-                {
-                    for (int b = 0; b < 3; b++)
-                    {
-                        board[i][a][b] = board[i][j][0];
-                    }
-                }*/
-                //printf("%d", i);
+
                 return board[i][j][0];
             }
         }
@@ -312,26 +297,25 @@ char checkMiniWinner(int i)
     {
         for (int j = 0; j < 3; j++)
         {
-            if(board[i][0][j] == board[i][1][j] && board[i][0][j] == board[i][2][j])
+            if(board[i][0][j] != ' ' && board[i][0][j] == board[i][1][j] && 
+                board[i][0][j] == board[i][2][j])
             {
-                //printf("%d", i);
                 return board[i][0][j];
             }
         }
     }
     for (i = 0; i < 9; i++)
     {
-        if(board[i][0][0] == board[i][1][1] && board[i][0][0] == board[i][2][2])
+        if(board[i][0][0] != ' ' && board[i][0][0] == board[i][1][1] && 
+            board[i][0][0] == board[i][2][2])
         {
-            //printf("%d", i);
             return board[i][0][0];
         }
     }
     for (i = 0; i < 9; i++)
     {
-        if(board[i][0][2] == board[i][1][1] && board[i][0][2] == board[i][2][0])
+        if(board[i][0][2] != ' ' && board[i][0][2] == board[i][1][1] && board[i][0][2] == board[i][2][0])
         {
-            //printf("%d", i);
             return board[i][0][2];
         }
     }
