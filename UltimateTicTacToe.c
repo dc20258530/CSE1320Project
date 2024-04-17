@@ -190,7 +190,7 @@ void printMenu()
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
     printf("[3] Exit\n");
-    printf("Select an option");
+    printf("Select an option\n");
     printf("********************************\n:: ");
 }
 
