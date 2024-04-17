@@ -9,7 +9,7 @@
 #define PLAYER1 'X'
 #define PLAYER2 'O'
 
-char board[BOARD]ROW][COL]; // creating the board for the game
+char board[BOARD][ROW][COL]; // creating the board for the game
 int b1; // variable used to pass i value from function checkMiniWinner to fillSubBoard
 
 void resetBoard();
@@ -104,23 +104,24 @@ void printBoard()
     }
 }
 
-void saveGameState(const char* filename){
-void save_game_state(const char* filename, char[9][3][3]* board)
+
+void saveGameState(const char* filename)
 {
     FILE* file = fopen(filename, "wb");
     if(file != NULL)
     {
-        fwrite(board, sizeof(UltimateTicTacToeBoard), 1, file);
+        fwrite(board, sizeof(board), 1, file);
         fclose(file);
-    }else
+    }
+    else
     {
         printf("Error: Unable to open file for writing. \n");
     }
 }
 
-void loadGmaeState(const char* fileName, char[9][3][3]* board)
+void loadGameState(const char* fileName)
 {
-    File* file = fopen(fileName, "rb");
+    FILE* file = fopen(fileName, "rb");
     if(file != NULL) 
     {
         fread(board, sizeof(board), 1, file);
