@@ -22,7 +22,7 @@ void printInstructions();
 void fillSubBoard();
 void saveGameState(const char* filename);
 void loadGameState(const char* filename);
-void checkSubBoard();
+int checkSubBoard();
 int checkFreeSpaces();
 char checkMiniWinner();
 
@@ -63,7 +63,7 @@ int main()
         printBoard();
 
         player1Move(b);
-        checkSubBoard();
+        printf("%d", b);
         fillSubBoard();
         printBoard();
 
@@ -180,7 +180,7 @@ void player1Move(int b)
         else
         {
             board[b][row][col] = PLAYER1;
-            // checkSubBoard
+            b = checkSubBoard(col, row);
             break;
         }
     } 
@@ -251,6 +251,7 @@ void player2Move(int b)
         else
         {
             board[b][row][col] = PLAYER2;
+            b = checkSubBoard(col, row);
             break;
         }
     } 
@@ -273,9 +274,53 @@ void fillSubBoard()
     }
 }
 
-void checkSubBoard()
+int checkSubBoard(int x, int y)
 {
-
+    switch(y)
+    {
+        case 0: 
+            switch(x)
+            {
+                case 0: 
+                    return 0;
+                    break;
+                case 1: 
+                    return 1;
+                    break;
+                case 2:
+                    return 2;
+                    break;
+            }
+            break;
+        case 1:
+            switch(x)
+            {
+                case 0: 
+                    return 3;
+                    break;
+                case 1:
+                    return 4;
+                    break;
+                case 2:
+                    return 5;
+                    break;
+            }
+            break;
+        case 2:
+            switch(x)
+            {
+                case 0: 
+                    return 6;
+                    break;
+                case 1:
+                    return 7;
+                    break;
+                case 2: 
+                    return 8;
+                    break;
+            }
+            break;
+    }
 }
 
 int checkFreeSpaces()
