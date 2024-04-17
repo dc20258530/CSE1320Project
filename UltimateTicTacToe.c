@@ -95,11 +95,11 @@ void printReferenceBoard()
     {
         for (int j = 0; j < 3; j++)
         {
-            if (j != 1 || j != 4 || j != 7)
-                printf ("      |      |      /      |      |      /      |      |      \n");
+            if (j != 1 || j != 4)
+                printf ("     |     |     /     |     |     /     |     |     \n");
             else 
-                printf ("      |  %c  |      /      |  %c  |      /      |  %c  |      \n",
-                    i, i+1, i+2);
+                printf ("     |  %d  |     /     |  %d  |     /     |  %d  |     \n",
+                    i+1, i+2, i+3);
             if (j != 2)
                 printf ("-----|-----|-----/-----|-----|-----/-----|-----|-----\n");
         }
