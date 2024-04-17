@@ -22,6 +22,7 @@ void printInstructions();
 void fillSubBoard();
 void saveGameState(const char* filename);
 void loadGameState(const char* filename);
+void checkSubBoard();
 int checkFreeSpaces();
 char checkMiniWinner();
 
@@ -62,6 +63,7 @@ int main()
         printBoard();
 
         player1Move(b);
+        checkSubBoard();
         fillSubBoard();
         printBoard();
 
@@ -165,10 +167,10 @@ void player1Move(int b)
     {
         /*Asks the user, row, and column to place their X or O
           If the spot is available it places, else its an invalid move and they try again*/
-        printf("Enter row #(1-3): ");
+        printf("Enter row #(1-3) in the correct board: ");
         scanf("%d", &row);
         row--;
-        printf("Enter column #(1-3): ");
+        printf("Enter column #(1-3) in the correct board: ");
         scanf("%d", &col);
         col--;
         if(board[b][row][col] != ' ')
@@ -178,6 +180,7 @@ void player1Move(int b)
         else
         {
             board[b][row][col] = PLAYER1;
+            // checkSubBoard
             break;
         }
     } 
@@ -268,6 +271,11 @@ void fillSubBoard()
             }
         }
     }
+}
+
+void checkSubBoard()
+{
+
 }
 
 int checkFreeSpaces()
