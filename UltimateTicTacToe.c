@@ -109,7 +109,8 @@ void saveGameState(const char* filename){
     if(file != NULL){
         fwrite(board, sizeof(board), 1, file);
         fclose(file);
-    }else{
+    }else
+    {
         printf("Error: Unable to open file for writing. \n");
     }
 }
