@@ -276,7 +276,7 @@ void fillSubBoard()
 
 int checkSubBoard(int x, int y)
 {
-    switch(y)
+    /*switch(y)
     {
         case 0: 
             switch(x)
@@ -320,6 +320,33 @@ int checkSubBoard(int x, int y)
                     break;
             }
             break;
+    }*/
+    if (y == 0)
+    {
+        if (x == 0)
+            return 0;
+        if (x == 1)
+            return 1;
+        if (x == 2)
+            return 2;
+    }
+    if (y == 1)
+    {
+        if (x == 0)
+            return 3;
+        if (x == 1)
+            return 4;
+        if (x == 2)
+            return 5;
+    }
+    if (y == 2)
+    {
+        if (x == 0)
+            return 6;
+        if (x == 1)
+            return 7;
+        if (x == 2)
+            return 8;
     }
 }
 
