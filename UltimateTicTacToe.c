@@ -15,6 +15,7 @@ int b1; // variable used to pass i value from function checkMiniWinner to fillSu
 void resetBoard();
 void printBoard();
 void printReferenceBoard();
+void menu();
 void player1Move(int b);
 void player2Move(int b);
 void printMenu();
@@ -22,15 +23,39 @@ void printInstructions();
 void fillSubBoard();
 void saveGameState(const char* filename);
 void loadGameState(const char* filename);
-int checkSubBoard();
+void checkSubBoard();
 int checkFreeSpaces();
 char checkMiniWinner();
 
 int main()
 {
-    int quit = 1, b;
+    int b;
     char winner = ' ';
     resetBoard();
+    menu();
+
+    printReferenceBoard();
+    printf ("Player 1 enter the board # desired: ");
+    scanf ("%d", &b);
+    b--;
+    while(winner == ' ' && checkFreeSpaces() != 0)
+    {
+        printBoard();
+
+        player1Move(b);
+        checkSubBoard();
+        fillSubBoard();
+        printBoard();
+
+        player2Move(b);
+        fillSubBoard();
+    }
+
+    menu();
+}
+
+void menu(){
+    int quit = 1;
     do
     {
         printMenu();
@@ -54,22 +79,6 @@ int main()
     }
     while(quit != 0);
 
-    printReferenceBoard();
-    printf ("Player 1 enter the board # desired: ");
-    scanf ("%d", &b);
-    b--;
-    while(winner == ' ' && checkFreeSpaces() != 0)
-    {
-        printBoard();
-
-        player1Move(b);
-        printf("%d", b);
-        fillSubBoard();
-        printBoard();
-
-        player2Move(b);
-        fillSubBoard();
-    }
 }
 
 void resetBoard()
@@ -180,7 +189,7 @@ void player1Move(int b)
         else
         {
             board[b][row][col] = PLAYER1;
-            b = checkSubBoard(col, row);
+            // checkSubBoard
             break;
         }
     } 
@@ -189,6 +198,7 @@ void player1Move(int b)
 
 void printMenu()
 {
+    printf("\n\n       Ultimate TicTacToe\n");
     printf("************* Menu *************\n");
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
@@ -251,7 +261,6 @@ void player2Move(int b)
         else
         {
             board[b][row][col] = PLAYER2;
-            b = checkSubBoard(col, row);
             break;
         }
     } 
@@ -274,7 +283,7 @@ void fillSubBoard()
     }
 }
 
-int checkSubBoard(int x, int y)
+void checkSubBoard()
 {
     /*switch(y)
     {
