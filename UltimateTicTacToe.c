@@ -24,7 +24,7 @@ void printMenu();
 void printInstructions();
 void fillSubBoard();
 void winLossCount(char player);
-int checkSubBoard(int x, int y);
+int moveSubBoard(int x, int y);
 int checkFreeSpaces();
 char checkMiniWinner();
 
