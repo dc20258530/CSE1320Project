@@ -23,7 +23,7 @@ void printInstructions();
 void fillSubBoard();
 void saveGameState(const char* filename);
 void loadGameState(const char* filename);
-int checkSubBoard();
+void checkSubBoard();
 int checkFreeSpaces();
 char checkMiniWinner();
 
@@ -50,11 +50,12 @@ int main()
         fillSubBoard();
     }
 
+
+
     menu();
 }
 
-void menu()
-{
+void menu(){
     int quit = 1;
     do
     {
@@ -116,7 +117,7 @@ void printBoard()
 }
 
 
-void saveGameState(const char* filename)
+void savePlayerScores(const char* filename)
 {
     FILE* file = fopen(filename, "wb");
     if(file != NULL)
@@ -130,7 +131,7 @@ void saveGameState(const char* filename)
     }
 }
 
-void loadGameState(const char* fileName)
+void loadPlayerScores(const char* fileName)
 {
     FILE* file = fopen(fileName, "rb");
     if(file != NULL) 
@@ -189,7 +190,7 @@ void player1Move(int b)
         else
         {
             board[b][row][col] = PLAYER1;
-            printf ("%d", checkSubBoard(col, row));
+            // checkSubBoard
             break;
         }
     } 
@@ -261,7 +262,6 @@ void player2Move(int b)
         else
         {
             board[b][row][col] = PLAYER2;
-            b = checkSubBoard(col, row);
             break;
         }
     } 
@@ -284,8 +284,53 @@ void fillSubBoard()
     }
 }
 
-int checkSubBoard(int x, int y)
+void checkSubBoard()
 {
+    /*switch(y)
+    {
+        case 0: 
+            switch(x)
+            {
+                case 0: 
+                    return 0;
+                    break;
+                case 1: 
+                    return 1;
+                    break;
+                case 2:
+                    return 2;
+                    break;
+            }
+            break;
+        case 1:
+            switch(x)
+            {
+                case 0: 
+                    return 3;
+                    break;
+                case 1:
+                    return 4;
+                    break;
+                case 2:
+                    return 5;
+                    break;
+            }
+            break;
+        case 2:
+            switch(x)
+            {
+                case 0: 
+                    return 6;
+                    break;
+                case 1:
+                    return 7;
+                    break;
+                case 2: 
+                    return 8;
+                    break;
+            }
+            break;
+    }*/
     if (y == 0)
     {
         if (x == 0)
