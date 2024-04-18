@@ -220,7 +220,7 @@ void printMenu()
     printf("************* Menu *************\n");
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
-    printf("[3]See Game Records");
+    printf("[3]See Game Records\n");
     printf("[4] Exit\n");
     printf("Select an option\n");
     printf("********************************\n:: ");
