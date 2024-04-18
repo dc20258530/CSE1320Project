@@ -16,14 +16,14 @@ void resetBoard();
 void printBoard();
 void printReferenceBoard();
 void menu();
-void player1Move(int b);
-void player2Move(int b);
+int player1Move(int b);
+int player2Move(int b);
 void printMenu();
 void printInstructions();
 void fillSubBoard();
 void saveGameState(const char* filename);
 void loadGameState(const char* filename);
-int checkSubBoard(int x, int y);
+int moveSubBoard(int x, int y);
 int checkFreeSpaces();
 char checkMiniWinner();
 
@@ -42,11 +42,12 @@ int main()
     {
         printBoard();
 
-        player1Move(b);
+        b = player1Move(b);
+        //printf("%d", b);
         fillSubBoard();
         printBoard();
 
-        player2Move(b);
+        b = player2Move(b);
         fillSubBoard();
     }
 
@@ -55,7 +56,8 @@ int main()
     menu();
 }
 
-void menu(){
+void menu()
+{
     int quit = 1;
     do
     {
@@ -168,7 +170,7 @@ void printReferenceBoard()
     }
 }
 
-void player1Move(int b)
+int player1Move(int b)
 {
     int row;
     int col;
@@ -190,8 +192,8 @@ void player1Move(int b)
         else
         {
             board[b][row][col] = PLAYER1;
-            b = checkSubBoard(col, row);
-            break;
+            //printf("%d", checkSubBoard(col, row));
+            return moveSubBoard(col, row);
         }
     } 
     while (board[b][row][col] != ' ');
@@ -242,7 +244,7 @@ void printInstructions()
     printf("Enjoy playing Ultimate Tic Tac Toe!\n");
 }
 
-void player2Move(int b)
+int player2Move(int b)
 {
     int row;
     int col;
@@ -262,8 +264,7 @@ void player2Move(int b)
         else
         {
             board[b][row][col] = PLAYER2;
-            b = checkSubBoard(col, row);
-            break;
+            return moveSubBoard(col, row);
         }
     } 
     while (board[b][row][col] != ' ');
@@ -285,7 +286,7 @@ void fillSubBoard()
     }
 }
 
-int checkSubBoard(int x, int y)
+int moveSubBoard(int x, int y)
 {
     if (y == 0)
     {
