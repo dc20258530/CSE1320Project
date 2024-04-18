@@ -418,7 +418,8 @@ char checkMiniWinner()
     }
     for (i = 0; i < 9; i++)
     {
-        if(board[i][0][2] != ' ' && board[i][0][2] == board[i][1][1] && board[i][0][2] == board[i][2][0])
+        if(board[i][0][2] != ' ' && board[i][0][2] == board[i][1][1] && 
+            board[i][0][2] == board[i][2][0])
         {
             b1 = i;
             return board[i][0][2];
