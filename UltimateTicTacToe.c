@@ -16,13 +16,13 @@ void resetBoard();
 void printBoard();
 void printReferenceBoard();
 void menu();
-int player1Move(int b);
-int player2Move(int b);
 void printMenu();
 void printInstructions();
 void fillSubBoard();
 void saveGameState(const char* filename);
 void loadGameState(const char* filename);
+int player1Move(int b);
+int player2Move(int b);
 int moveSubBoard(int x, int y);
 int checkFreeSpaces();
 char checkMiniWinner();
@@ -43,7 +43,6 @@ int main()
         printBoard();
 
         b = player1Move(b);
-        //printf("%d", b);
         fillSubBoard();
         printBoard();
 
@@ -172,11 +171,11 @@ void printReferenceBoard()
 
 int player1Move(int b)
 {
-    int row;
-    int col;
+    int row, col, check;
 
     do
     {
+        check = 0;
         /*Asks the user, row, and column to place their X or O
           If the spot is available it places, else its an invalid move and they try again*/
         printf("Enter row #(1-3) in the correct board: ");
@@ -185,14 +184,27 @@ int player1Move(int b)
         printf("Enter column #(1-3) in the correct board: ");
         scanf("%d", &col);
         col--;
-        if(board[b][row][col] != ' ')
+        if (board[b][row][col] != ' ')
         {
             printf("Invalid move!\n");
+            for (int j = 0; j < ROW; j++)
+            {
+                for (int k = 0; k < COL; k++)
+                {
+                    if (board[b][j][k] == PLAYER1 || board[b][j][k] == PLAYER2)
+                        check++;
+                }
+            }
+            if (check == 9)
+            {
+                printf ("Board is full, enter any open board #(1-9): ");
+                scanf ("%d", &b);
+                //continue;
+            }
         }
         else
         {
             board[b][row][col] = PLAYER1;
-            //printf("%d", checkSubBoard(col, row));
             return moveSubBoard(col, row);
         }
     } 
@@ -246,11 +258,11 @@ void printInstructions()
 
 int player2Move(int b)
 {
-    int row;
-    int col;
+    int row, col, check;
 
     do
     {
+        check = 0;
         printf("Enter row #(1-3): ");
         scanf("%d", &row);
         row--;
@@ -260,6 +272,20 @@ int player2Move(int b)
         if(board[b][row][col] != ' ')
         {
             printf("Invalid move!\n");
+            for (int j = 0; j < ROW; j++)
+            {
+                for (int k = 0; k < COL; k++)
+                {
+                    if (board[b][j][k] == PLAYER1 || board[b][j][k] == PLAYER2)
+                        check++;
+                }
+            }
+            if (check == 9)
+            {
+                printf ("Board is full, enter any open board #(1-9): ");
+                scanf ("%d", &b);
+                continue;
+            }
         }
         else
         {
@@ -273,7 +299,6 @@ int player2Move(int b)
 void fillSubBoard()
 {
     char miniWinner = checkMiniWinner();
-    //printf("%d", i);
     if (miniWinner == 'X' || miniWinner == 'O') 
     {
         for (int a = 0; a < 3; a++) 
