@@ -43,7 +43,6 @@ int main()
         printBoard();
 
         player1Move(b);
-        checkSubBoard();
         fillSubBoard();
         printBoard();
 
