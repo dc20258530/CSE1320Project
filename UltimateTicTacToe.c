@@ -33,10 +33,6 @@ int main()
     FILE *file;
     int b;
     char winner = ' ';
-    int player1Wins;
-    int player2Wins;
-    int player1Losses;
-    int player2Losses;
     resetBoard();
 
     file = fopen("gameRecords.txt", "r+");
@@ -232,7 +228,7 @@ void printMenu()
     printf("************* Menu *************\n");
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
-    printf("[3]See Game Records");
+    printf("[3]See Game Records\n");
     printf("[4] Exit\n");
     printf("Select an option\n");
     printf("********************************\n:: ");
