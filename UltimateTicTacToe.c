@@ -33,10 +33,6 @@ int main()
     FILE *file;
     int b;
     char winner = ' ';
-    int player1Wins;
-    int player2Wins;
-    int player1Losses;
-    int player2Losses;
     resetBoard();
 
     file = fopen("gameRecords.txt", "r+");
