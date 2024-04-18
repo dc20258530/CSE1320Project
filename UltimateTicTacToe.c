@@ -15,26 +15,42 @@ int b1; // variable used to pass i value from function checkMiniWinner to fillSu
 void resetBoard();
 void printBoard();
 void printReferenceBoard();
-void menu();
+void menu(FILE* file);
+void printGameRecords(FILE* file);
+void updateGameRecords(FILE* file, char winner);
+void player1Move(int b);
+void player2Move(int b);
 void printMenu();
 void printInstructions();
 void fillSubBoard();
-void saveGameState(const char* filename);
-void loadGameState(const char* filename);
-int player1Move(int b);
-int player2Move(int b);
-int moveSubBoard(int x, int y);
+void winLossCount(char player);
+int checkSubBoard(int x, int y);
 int checkFreeSpaces();
 char checkMiniWinner();
 
 int main()
 {
+    FILE *file;
     int b;
     char winner = ' ';
+    int player1Wins;
+    int player2Wins;
+    int player1Losses;
+    int player2Losses;
     resetBoard();
-    menu();
 
-    printReferenceBoard();
+    file = fopen("gameRecords.txt", "r+");
+    if(file == NULL)
+    {
+        printf("File not found. Creating new file.\n");
+        file = fopen("gameRecords.txt", "w+");
+        fprintf(file, "0 0");
+        rewind(file);
+    }
+
+    menu(file);
+    start:
+    printReferenceBoard(file);
     printf ("Player 1 enter the board # desired: ");
     scanf ("%d", &b);
     b--;
@@ -49,14 +65,13 @@ int main()
         b = player2Move(b);
         fillSubBoard();
     }
-
-
-
-    menu();
+    updateGameRecords(file, winner);
+    menu(file);
+    winner = ' ';
+    goto start;
 }
 
-void menu()
-{
+void menu(FILE* file){
     int quit = 1;
     do
     {
@@ -73,13 +88,41 @@ void menu()
                 printInstructions();
                 break;
             case 3 :
+                printGameRecords(file);
+            case 4 :
                 printf("\nExiting... \n");
+                fclose(file);
                 exit(0);
             default : 
                 printf("\nInvalid choice. Please enter a valid option.\n");
         }
     }
     while(quit != 0);
+
+}
+
+void printGameRecords(FILE* file)
+{
+    int p1wins, p2wins; 
+    fscanf(file, "%d %d", &p1wins, &p2wins);
+    printf("Player 1 Wins: %d\n Player 2 Wins: %d\n", p1wins, p2wins);
+}
+
+void updateGameRecords(FILE* file, char winner)
+{
+    int p1wins, p2wins;
+    fscanf(file, "%d %d", &p1wins, &p2wins);
+
+    if(winner=='X')
+    {
+        p1wins++;
+    }
+    else{
+        p2wins++;
+    }
+
+    fseek(file, 0, SEEK_SET);
+    fprintf(file, "%d %d", p1wins, p2wins);
 
 }
 
@@ -117,34 +160,6 @@ void printBoard()
     }
 }
 
-
-void savePlayerScores(const char* filename)
-{
-    FILE* file = fopen(filename, "wb");
-    if(file != NULL)
-    {
-        fwrite(board, sizeof(board), 1, file);
-        fclose(file);
-    }
-    else
-    {
-        printf("Error: Unable to open file for writing. \n");
-    }
-}
-
-void loadPlayerScores(const char* fileName)
-{
-    FILE* file = fopen(fileName, "rb");
-    if(file != NULL) 
-    {
-        fread(board, sizeof(board), 1, file);
-        fclose(file);
-    } 
-    else 
-    {
-        printf("Error: Unable to open file for reading.\n");
-    }
-}
 
 void printReferenceBoard()
 {
@@ -217,7 +232,8 @@ void printMenu()
     printf("************* Menu *************\n");
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
-    printf("[3] Exit\n");
+    printf("[3]See Game Records");
+    printf("[4] Exit\n");
     printf("Select an option\n");
     printf("********************************\n:: ");
 }
