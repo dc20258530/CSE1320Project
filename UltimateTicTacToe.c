@@ -85,6 +85,7 @@ void menu(FILE* file){
                 break;
             case 3 :
                 printGameRecords(file);
+                break;
             case 4 :
                 printf("\nExiting... \n");
                 fclose(file);
@@ -101,7 +102,7 @@ void printGameRecords(FILE* file)
 {
     int p1wins, p2wins; 
     fscanf(file, "%d %d", &p1wins, &p2wins);
-    printf("Player 1 Wins: %d\n Player 2 Wins: %d\n", p1wins, p2wins);
+    printf("Player 1 Wins: %d\nPlayer 2 Wins: %d\n", p1wins, p2wins);
 }
 
 void updateGameRecords(FILE* file, char winner)
