@@ -22,11 +22,11 @@ int player1Move(int b);
 int player2Move(int b);
 void printMenu();
 void printInstructions();
-void fillSubBoard();
+void fillSubBoard(char miniWinner, int b);
 void winLossCount(char player);
 int moveSubBoard(int x, int y);
 int checkFreeSpaces();
-char checkMiniWinner();
+void checkMiniWinner();
 char checkBigWinner();
 
 int main()
@@ -56,14 +56,14 @@ int main()
         printBoard();
 
         b = player1Move(b);
-        fillSubBoard();
+        checkMiniWinner();
         if (winner != ' ' || checkFreeSpaces() == 0)
             break;
 
         printBoard();
 
         b = player2Move(b);
-        fillSubBoard();
+        checkMiniWinner();
         if (winner != ' ' || checkFreeSpaces() == 0)
             break;
     }
@@ -323,21 +323,13 @@ int player2Move(int b)
     while (1);
 }
 
-void fillSubBoard()
+void fillSubBoard(char miniWinner, int x)
 {
-    int b1 = 0; //*used[BOARD];
-    char miniWinner = ' ';
-    miniWinner = checkMiniWinner(&b1);
-    if (miniWinner == 'X' || miniWinner == 'O') 
+    for (int a = 0; a < 3; a++) 
     {
-        //used[b1] = b1;
-        //printf ("troubleshoot");
-        for (int a = 0; a < 3; a++) 
+        for (int b = 0; b < 3; b++)
         {
-            for (int b = 0; b < 3; b++)
-            {
-                board[b1][a][b] = miniWinner;
-            }
+            board[x][a][b] = miniWinner;
         }
     }
 }
@@ -394,21 +386,17 @@ int checkFreeSpaces()
     return freeSpaces;
 }
 
-char checkMiniWinner(int *b1) //, int *used[BOARD])
+
+void checkMiniWinner() 
 {
-    int exclude[BOARD];
-    for (int i = 0; i < BOARD; i++)
+    for(int i = 0; i < BOARD; i++)
     {
-        if (exclude[i] != '\0')
-            continue;
         for(int j = 0; j < 3; j++)
         {
             if(board[i][j][0] != ' ' && board[i][j][0] == board[i][j][1] && 
                 board[i][j][0] == board[i][j][2])
             {
-                *b1 = i;
-                exclude[i] = i;
-                return board[i][j][0];
+                fillSubBoard(i, board[i][j][0]);
             }
         }
         for (int j = 0; j < 3; j++)
@@ -416,28 +404,20 @@ char checkMiniWinner(int *b1) //, int *used[BOARD])
             if(board[i][0][j] != ' ' && board[i][0][j] == board[i][1][j] && 
                 board[i][0][j] == board[i][2][j])
             {
-                *b1 = i;
-                exclude[i] = i;
-                return board[i][0][j];
+                fillSubBoard(i, board[i][0][j]);
             }
         }
         if(board[i][0][0] != ' ' && board[i][0][0] == board[i][1][1] && 
             board[i][0][0] == board[i][2][2])
         {
-            *b1 = i;
-            exclude[i] = i;
-            return board[i][0][0];
+            fillSubBoard(i, board[i][0][0]);
         }
         if(board[i][0][2] != ' ' && board[i][0][2] == board[i][1][1] && 
             board[i][0][2] == board[i][2][0])
         {
-            *b1 = i;
-            exclude[i] = i;
-            return board[i][0][2];
+            fillSubBoard(i, board[i][0][2]);
         }
     }
-    //printf ("not found");
-    return ' ';
 }
 
 char checkBigWinner()
