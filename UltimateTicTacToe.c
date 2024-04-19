@@ -10,7 +10,7 @@
 #define PLAYER2 'O'
 
 char board[BOARD][ROW][COL]; // creating the board for the game
-int b1; // variable used to pass i value from function checkMiniWinner to fillSubBoard
+ // variable used to pass i value from function checkMiniWinner to fillSubBoard
 
 void resetBoard();
 void printBoard();
@@ -57,10 +57,15 @@ int main()
 
         b = player1Move(b);
         fillSubBoard();
+        if (winner != ' ' || checkFreeSpaces() == 0)
+            break;
+
         printBoard();
 
         b = player2Move(b);
         fillSubBoard();
+        if (winner != ' ' || checkFreeSpaces() == 0)
+            break;
     }
     updateGameRecords(file, winner);
     menu(file);
@@ -198,6 +203,11 @@ int player1Move(int b)
         printf("Enter column #(1-3) in the correct board: ");
         scanf("%d", &col);
         col--;
+        if (row < 0 || row >= ROW || col < 0 || col >= COL) 
+        {
+            printf("Invalid move! Row and column numbers must be between 1 and 3.\n");
+            continue;
+        }
         if (board[b][row][col] != ' ')
         {
             printf("Invalid move!\n");
@@ -315,12 +325,16 @@ int player2Move(int b)
 
 void fillSubBoard()
 {
-    char miniWinner = checkMiniWinner();
+    int b1 = 0; //*used[BOARD];
+    char miniWinner = ' ';
+    miniWinner = checkMiniWinner(&b1);
     if (miniWinner == 'X' || miniWinner == 'O') 
     {
+        //used[b1] = b1;
+        //printf ("troubleshoot");
         for (int a = 0; a < 3; a++) 
         {
-            for (int b = 0; b < 3; b++) 
+            for (int b = 0; b < 3; b++)
             {
                 board[b1][a][b] = miniWinner;
             }
@@ -380,51 +394,50 @@ int checkFreeSpaces()
     return freeSpaces;
 }
 
-char checkMiniWinner()
+char checkMiniWinner(int *b1) //, int *used[BOARD])
 {
-    int i;
-    for (i = 0; i < BOARD; i++)
+    int exclude[BOARD];
+    for (int i = 0; i < BOARD; i++)
     {
+        if (exclude[i] != '\0')
+            continue;
         for(int j = 0; j < 3; j++)
         {
             if(board[i][j][0] != ' ' && board[i][j][0] == board[i][j][1] && 
                 board[i][j][0] == board[i][j][2])
             {
-                b1 = i;
+                *b1 = i;
+                exclude[i] = i;
                 return board[i][j][0];
             }
         }
-    }
-    for (i = 0; i < BOARD; i++)
-    {
         for (int j = 0; j < 3; j++)
         {
             if(board[i][0][j] != ' ' && board[i][0][j] == board[i][1][j] && 
                 board[i][0][j] == board[i][2][j])
             {
-                b1 = i;
+                *b1 = i;
+                exclude[i] = i;
                 return board[i][0][j];
             }
         }
-    }
-    for (i = 0; i < BOARD; i++)
-    {
         if(board[i][0][0] != ' ' && board[i][0][0] == board[i][1][1] && 
             board[i][0][0] == board[i][2][2])
         {
-            b1 = i;
+            *b1 = i;
+            exclude[i] = i;
             return board[i][0][0];
         }
-    }
-    for (i = 0; i < BOARD; i++)
-    {
         if(board[i][0][2] != ' ' && board[i][0][2] == board[i][1][1] && 
             board[i][0][2] == board[i][2][0])
         {
-            b1 = i;
+            *b1 = i;
+            exclude[i] = i;
             return board[i][0][2];
         }
     }
+    //printf ("not found");
+    return ' ';
 }
 
 char checkBigWinner()
