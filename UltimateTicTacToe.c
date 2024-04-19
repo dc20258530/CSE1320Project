@@ -23,7 +23,6 @@ int player2Move(int b);
 void printMenu();
 void printInstructions();
 void fillSubBoard();
-void winLossCount(char player);
 int moveSubBoard(int x, int y);
 int checkFreeSpaces();
 char checkMiniWinner();
@@ -36,7 +35,7 @@ int main()
     char winner = ' ';
     resetBoard();
 
-    file = fopen("gameRecords.txt", "r+");
+    file = fopen("gameRecords.txt", "w");
     if(file == NULL)
     {
         printf("File not found. Creating new file.\n");
@@ -114,6 +113,7 @@ void menu(FILE* file){
     while(quit != 0);
 
 }
+
 
 void printGameRecords(FILE* file)
 {
