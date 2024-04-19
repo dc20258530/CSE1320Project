@@ -195,7 +195,7 @@ int player1Move(int b)
     do
     {
         check = 0;
-        /*Asks the user, row, and column to place their X or O
+        /*Asks the user, row, and column to place their X
           If the spot is available it places, else its an invalid move and they try again*/
         printf("Enter row #(1-3) in the correct board: ");
         scanf("%d", &row);
@@ -203,16 +203,21 @@ int player1Move(int b)
         printf("Enter column #(1-3) in the correct board: ");
         scanf("%d", &col);
         col--;
+        //Checks if the row & column the user inputted is a valid number
         if (row < 0 || row >= ROW || col < 0 || col >= COL) 
         {
             printf("Invalid move! Row and column numbers must be between 1 and 3.\n");
             continue;
         }
+        //Checks if the mini board the user has to play on is won already
+        //If it is won, the user gets to choose any open board
         if (board[b][row][col] != ' ')
         {
             printf("Invalid move!\n");
             for (int j = 0; j < ROW; j++)
             {
+                //Check is used to see if the board is full, once check is greater than 9
+                //The user can choose any board that is open.
                 for (int k = 0; k < COL; k++)
                 {
                     if (board[b][j][k] == PLAYER1 || board[b][j][k] == PLAYER2)
@@ -288,6 +293,8 @@ int player2Move(int b)
 
     do
     {
+        /*Asks the user, row, and column to place their X
+          If the spot is available it places, else its an invalid move and they try again*/
         check = 0;
         printf("Enter row #(1-3): ");
         scanf("%d", &row);
@@ -298,6 +305,8 @@ int player2Move(int b)
         if(board[b][row][col] != ' ')
         {
             printf("Invalid move!\n");
+            //Checks if the mini board the user has to play on is won already
+            //If it is won, the user gets to choose any open board
             for (int j = 0; j < ROW; j++)
             {
                 for (int k = 0; k < COL; k++)
@@ -325,8 +334,11 @@ int player2Move(int b)
 
 void fillSubBoard()
 {
+    //Fills the mini board if the board has a winner
     int b1 = 0;
     char miniWinner = checkMiniWinner(&b1);
+    //If checkMiniWinner() finds a winner, then it will fill the mini board
+    // with the character that won
     if (miniWinner == 'X' || miniWinner == 'O') 
     {
         for (int a = 0; a < 3; a++) 
@@ -372,8 +384,8 @@ int moveSubBoard(int x, int y)
 
 int checkFreeSpaces()
 {
+    
     int freeSpaces = 81;
-
     for (int i = 0; i < 9; i++)
     {
         for (int j = 0; j < 3; j++)
