@@ -27,6 +27,7 @@ void winLossCount(char player);
 int moveSubBoard(int x, int y);
 int checkFreeSpaces();
 char checkMiniWinner();
+char checkBigWinner();
 
 int main()
 {
@@ -160,7 +161,7 @@ void printBoard()
 void printReferenceBoard()
 {
     int i = 0;
-    printf ("  1     2     3     1     2     3     1     2     3\n");
+    printf ("    1     2     3     1     2     3     1     2     3\n");
     while (i < 9)
     {
         for (int j = 0; j < 3; j++)
@@ -210,6 +211,7 @@ int player1Move(int b)
             {
                 printf ("Board is full, enter any open board #(1-9): ");
                 scanf ("%d", &b);
+                b--;
                 //continue;
             }
         }
@@ -219,7 +221,7 @@ int player1Move(int b)
             return moveSubBoard(col, row);
         }
     } 
-    while (board[b][row][col] != ' ');
+    while (1);
 }
 
 void printMenu()
@@ -296,6 +298,7 @@ int player2Move(int b)
             {
                 printf ("Board is full, enter any open board #(1-9): ");
                 scanf ("%d", &b);
+                b--;
                 continue;
             }
         }
@@ -305,7 +308,7 @@ int player2Move(int b)
             return moveSubBoard(col, row);
         }
     } 
-    while (board[b][row][col] != ' ');
+    while (1);
 }
 
 void fillSubBoard()
@@ -378,7 +381,7 @@ int checkFreeSpaces()
 char checkMiniWinner()
 {
     int i;
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < BOARD; i++)
     {
         for(int j = 0; j < 3; j++)
         {
@@ -390,7 +393,7 @@ char checkMiniWinner()
             }
         }
     }
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < BOARD; i++)
     {
         for (int j = 0; j < 3; j++)
         {
@@ -402,7 +405,7 @@ char checkMiniWinner()
             }
         }
     }
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < BOARD; i++)
     {
         if(board[i][0][0] != ' ' && board[i][0][0] == board[i][1][1] && 
             board[i][0][0] == board[i][2][2])
@@ -411,7 +414,7 @@ char checkMiniWinner()
             return board[i][0][0];
         }
     }
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < BOARD; i++)
     {
         if(board[i][0][2] != ' ' && board[i][0][2] == board[i][1][1] && 
             board[i][0][2] == board[i][2][0])
@@ -419,5 +422,30 @@ char checkMiniWinner()
             b1 = i;
             return board[i][0][2];
         }
+    }
+}
+
+char checkBigWinner()
+{
+    if (board[0][2][2] != ' ' && board[0][2][2] == board[4][2][2] && 
+        board[0][2][2] == board[8][2][2])
+        return board[0][2][2];
+
+    if (board[2][2][2] != ' ' && board[2][2][2] == board[4][2][2] && 
+        board[2][2][2] == board[6][2][2])
+        return board[2][2][2];
+
+    for (int i = 0; i < ROW; i++)
+    {
+        if (board[i][2][2] != ' ' && board[i][2][2] == board[i+3][2][2] && 
+            board[i][2][2] == board[i+6][2][2])
+            return board[i][2][2];
+    }
+
+    for (int i = 0; i < COL; i++)
+    {
+        if (board[i][2][2] != ' ' && board[i][2][2] == board[i+1][2][2] && 
+            board[i][2][2] == board[i+2][2][2])
+            return board[i][2][2];
     }
 }
