@@ -47,6 +47,7 @@ int main()
 
     menu(file);
     start:
+    resetBoard();
     printReferenceBoard(file);
     printf ("Player 1 enter the board # desired: ");
     scanf ("%d", &b);
@@ -57,15 +58,25 @@ int main()
 
         b = player1Move(b);
         fillSubBoard();
+        winner = checkBigWinner();
         if (winner != ' ' || checkFreeSpaces() == 0)
+        {
+            printBoard();
+            printf ("\n\nGame Over! Player 1 wins!");
             break;
+        }
 
         printBoard();
 
         b = player2Move(b);
         fillSubBoard();
+        winner = checkBigWinner();
         if (winner != ' ' || checkFreeSpaces() == 0)
+        {
+            printBoard();
+            printf ("\n\nGame Over! Player 2 wins!");
             break;
+        }
     }
     updateGameRecords(file, winner);
     menu(file);
@@ -197,10 +208,10 @@ int player1Move(int b)
         check = 0;
         /*Asks the user, row, and column to place their X
           If the spot is available it places, else its an invalid move and they try again*/
-        printf("Enter row #(1-3) in the correct board: ");
+        printf("Player X Enter row #(1-3) in the correct board: ");
         scanf("%d", &row);
         row--;
-        printf("Enter column #(1-3) in the correct board: ");
+        printf("Player X Enter column #(1-3) in the correct board: ");
         scanf("%d", &col);
         col--;
         //Checks if the row & column the user inputted is a valid number
@@ -296,12 +307,17 @@ int player2Move(int b)
         /*Asks the user, row, and column to place their X
           If the spot is available it places, else its an invalid move and they try again*/
         check = 0;
-        printf("Enter row #(1-3): ");
+        printf("Player O Enter row #(1-3) in correct board: ");
         scanf("%d", &row);
         row--;
-        printf("Enter column #(1-3): ");
+        printf("Player O Enter column #(1-3) in correct board: ");
         scanf("%d", &col);
         col--;
+        if (row < 0 || row >= ROW || col < 0 || col >= COL) 
+        {
+            printf("Invalid move! Row and column numbers must be between 1 and 3.\n");
+            continue;
+        }
         if(board[b][row][col] != ' ')
         {
             printf("Invalid move!\n");
@@ -452,24 +468,29 @@ char checkMiniWinner(int *b1)
 char checkBigWinner()
 {
     if (board[0][2][2] != ' ' && board[0][2][2] == board[4][2][2] && 
-        board[0][2][2] == board[8][2][2])
+        board[0][2][2] == board[8][2][2] && exclude[0] != '\0' && 
+        exclude[4] != '\0' && exclude[8] != '\0')
         return board[0][2][2];
 
     if (board[2][2][2] != ' ' && board[2][2][2] == board[4][2][2] && 
-        board[2][2][2] == board[6][2][2])
+        board[2][2][2] == board[6][2][2] && exclude[2] != '\0' && 
+        exclude[4] != '\0' && exclude[6] != '\0')
         return board[2][2][2];
 
     for (int i = 0; i < ROW; i++)
     {
         if (board[i][2][2] != ' ' && board[i][2][2] == board[i+3][2][2] && 
-            board[i][2][2] == board[i+6][2][2])
+            board[i][2][2] == board[i+6][2][2] && exclude[i] != '\0' && 
+            exclude[i+3] != '\0' && exclude[i+6] != '\0')
             return board[i][2][2];
     }
 
     for (int i = 0; i < COL; i++)
     {
         if (board[i][2][2] != ' ' && board[i][2][2] == board[i+1][2][2] && 
-            board[i][2][2] == board[i+2][2][2])
+            board[i][2][2] == board[i+2][2][2] && exclude[i] != '\0' && 
+            exclude[i+1] != '\0' && exclude[i+2] != '\0')
             return board[i][2][2];
     }
+    return ' ';
 }
