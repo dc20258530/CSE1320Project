@@ -123,6 +123,7 @@ void menu(FILE* file){
 
 }
 
+
 void printGameRecords(FILE* file)
 {
     int p1wins, p2wins; 
