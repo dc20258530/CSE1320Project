@@ -2,15 +2,18 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+// all libraries used for this code
 
 #define BOARD 9
 #define ROW 3
 #define COL 3
 #define PLAYER1 'X'
 #define PLAYER2 'O'
+// variables to used in fors
 
 char board[BOARD][ROW][COL]; // creating the board for the game
 int exclude[BOARD];
+// global arrays used to retrieve data throughout code
 
 void resetBoard();
 void printBoard();
@@ -25,7 +28,7 @@ void printInstructions();
 void fillSubBoard();
 int moveSubBoard(int x, int y);
 int checkFreeSpaces();
-char checkMiniWinner();
+char checkMiniWinner(int *b1);
 char checkBigWinner();
 
 int main()
