@@ -22,39 +22,45 @@ void menu(FILE* file);
 void printGameRecords(FILE* file);
 void updateGameRecords(FILE* file, char winner);
 void clearGameRecords(FILE* file);
-int player1Move(int b);
-int player2Move(int b);
 void printMenu();
 void printInstructions();
 void fillSubBoard();
+int player2Move(int b);
+int player1Move(int b);
 int moveSubBoard(int x, int y);
 int checkFreeSpaces();
 char checkMiniWinner(int *b1);
 char checkBigWinner();
+// all functions used in this code
 
 int main()
 {
     FILE *file;
+    // create a FILE type names file
     int b;
     char winner = ' ';
     resetBoard();
 
     file = fopen("gameRecords.txt", "r+");
+    // open file and name it gameRecords.txt
     if(file == NULL)
     {
         printf("File not found. Creating new file.\n");
         file = fopen("gameRecords.txt", "w+");
         fprintf(file, "0 0");
         rewind(file);
+        // if file doesnt exist, create it within this if
     }
 
     menu(file);
     start:
+    // the start 
     resetBoard();
     printReferenceBoard(file);
     printf ("Player 1 enter the board # desired: ");
     scanf ("%d", &b);
     b--;
+    // main code for the game starts here
     while(winner == ' ' && checkFreeSpaces() != 0)
     {
         printBoard();
@@ -86,7 +92,8 @@ int main()
     goto start;
 }
 
-void menu(FILE* file){
+void menu(FILE* file)
+{
     int quit = 1;
     do
     {
@@ -167,7 +174,7 @@ void resetBoard()
     }
 }
 
-void printBoard()
+void printBoard() // a function to print the board with the characters
 {
     int i = 0;
     while (i < BOARD)
@@ -188,7 +195,7 @@ void printBoard()
 }
 
 
-void printReferenceBoard()
+void printReferenceBoard() // a function to print the reference board
 {
     int i = 0;
     printf ("    1     2     3     1     2     3     1     2     3\n");
@@ -211,7 +218,7 @@ void printReferenceBoard()
     }
 }
 
-int player1Move(int b)
+int player1Move(int b) // a function that a allows the player to input a move
 {
     int row, col, check;
 
