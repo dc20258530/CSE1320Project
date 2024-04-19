@@ -86,6 +86,7 @@ void menu(FILE* file){
                 break;
             case 3 :
                 printGameRecords(file);
+                break;
             case 4 :
                 printf("\nExiting... \n");
                 fclose(file);
@@ -102,7 +103,8 @@ void printGameRecords(FILE* file)
 {
     int p1wins, p2wins; 
     fscanf(file, "%d %d", &p1wins, &p2wins);
-    printf("Player 1 Wins: %d\n Player 2 Wins: %d\n", p1wins, p2wins);
+    printf("\n\nPlayer 1 Wins: %d\nPlayer 2 Wins: %d\n", p1wins, p2wins);
+    rewind(file);
 }
 
 void updateGameRecords(FILE* file, char winner)
@@ -110,17 +112,17 @@ void updateGameRecords(FILE* file, char winner)
     int p1wins, p2wins;
     fscanf(file, "%d %d", &p1wins, &p2wins);
 
-    if(winner=='X')
+    if(winner == 'X')
     {
         p1wins++;
     }
-    else{
+    else if(winner =='O'){
         p2wins++;
     }
 
     fseek(file, 0, SEEK_SET);
     fprintf(file, "%d %d", p1wins, p2wins);
-
+    rewind(file);
 }
 
 void resetBoard()
@@ -230,7 +232,7 @@ void printMenu()
     printf("************* Menu *************\n");
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
-    printf("[3]See Game Records\n");
+    printf("[3] See Game Records\n");
     printf("[4] Exit\n");
     printf("Select an option\n");
     printf("********************************\n:: ");
