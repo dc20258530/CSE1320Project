@@ -10,7 +10,7 @@
 #define PLAYER2 'O'
 
 char board[BOARD][ROW][COL]; // creating the board for the game
- // variable used to pass i value from function checkMiniWinner to fillSubBoard
+int exclude[BOARD];
 
 void resetBoard();
 void printBoard();
@@ -325,13 +325,10 @@ int player2Move(int b)
 
 void fillSubBoard()
 {
-    int b1 = 0; //*used[BOARD];
-    char miniWinner = ' ';
-    miniWinner = checkMiniWinner(&b1);
+    int b1 = 0;
+    char miniWinner = checkMiniWinner(&b1);
     if (miniWinner == 'X' || miniWinner == 'O') 
     {
-        //used[b1] = b1;
-        //printf ("troubleshoot");
         for (int a = 0; a < 3; a++) 
         {
             for (int b = 0; b < 3; b++)
@@ -394,20 +391,21 @@ int checkFreeSpaces()
     return freeSpaces;
 }
 
-char checkMiniWinner(int *b1) //, int *used[BOARD])
+char checkMiniWinner(int *b1)
 {
-    int exclude[BOARD];
     for (int i = 0; i < BOARD; i++)
     {
         if (exclude[i] != '\0')
+        {
             continue;
+        }
         for(int j = 0; j < 3; j++)
         {
             if(board[i][j][0] != ' ' && board[i][j][0] == board[i][j][1] && 
                 board[i][j][0] == board[i][j][2])
             {
                 *b1 = i;
-                exclude[i] = i;
+                exclude[i] += 1;
                 return board[i][j][0];
             }
         }
@@ -417,7 +415,7 @@ char checkMiniWinner(int *b1) //, int *used[BOARD])
                 board[i][0][j] == board[i][2][j])
             {
                 *b1 = i;
-                exclude[i] = i;
+                exclude[i] += 1;
                 return board[i][0][j];
             }
         }
@@ -425,18 +423,17 @@ char checkMiniWinner(int *b1) //, int *used[BOARD])
             board[i][0][0] == board[i][2][2])
         {
             *b1 = i;
-            exclude[i] = i;
+            exclude[i] += 1;
             return board[i][0][0];
         }
         if(board[i][0][2] != ' ' && board[i][0][2] == board[i][1][1] && 
             board[i][0][2] == board[i][2][0])
         {
             *b1 = i;
-            exclude[i] = i;
+            exclude[i] += 1;
             return board[i][0][2];
         }
     }
-    //printf ("not found");
     return ' ';
 }
 
