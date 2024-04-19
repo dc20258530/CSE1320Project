@@ -92,7 +92,8 @@ int main()
     goto start;
 }
 
-void menu(FILE* file){
+void menu(FILE* file)
+{
     int quit = 1;
     do
     {
@@ -164,7 +165,7 @@ void resetBoard()
     }
 }
 
-void printBoard()
+void printBoard() // a function to print the board with the characters
 {
     int i = 0;
     while (i < BOARD)
@@ -185,7 +186,7 @@ void printBoard()
 }
 
 
-void printReferenceBoard()
+void printReferenceBoard() // a function to print the reference board
 {
     int i = 0;
     printf ("    1     2     3     1     2     3     1     2     3\n");
@@ -208,7 +209,7 @@ void printReferenceBoard()
     }
 }
 
-int player1Move(int b)
+int player1Move(int b) // a function that a allows the player to input a move
 {
     int row, col, check;
 
