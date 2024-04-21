@@ -21,6 +21,7 @@ void printReferenceBoard();
 void menu(FILE* file);
 void printGameRecords(FILE* file);
 void updateGameRecords(FILE* file, char winner);
+void clearGameRecords(FILE* file);
 void printMenu();
 void printInstructions();
 void fillSubBoard();
@@ -63,7 +64,6 @@ int main()
     while(winner == ' ' && checkFreeSpaces() != 0)
     {
         printBoard();
-
         b = player1Move(b);
         fillSubBoard();
         winner = checkBigWinner();
@@ -113,6 +113,9 @@ void menu(FILE* file)
                 printGameRecords(file);
                 break;
             case 4 :
+                clearGameRecords(file);
+                break;
+            case 5 :
                 printf("\nExiting... \n");
                 fclose(file);
                 exit(0);
@@ -124,6 +127,12 @@ void menu(FILE* file)
 
 }
 
+void clearGameRecords(FILE* file)
+{
+    fprintf(file, "%d %d", 0, 0);
+    rewind(file);
+    printGameRecords(file);
+}
 
 void printGameRecords(FILE* file)
 {
@@ -269,7 +278,8 @@ void printMenu()
     printf("[1] PLAY\n");
     printf("[2] Instructions\n");
     printf("[3] See Game Records\n");
-    printf("[4] Exit\n");
+    printf("[4] Clear Game Records\n");
+    printf("[5] Exit\n");
     printf("Select an option\n");
     printf("********************************\n:: ");
 }
@@ -410,7 +420,6 @@ int moveSubBoard(int x, int y)
 
 int checkFreeSpaces()
 {
-    
     int freeSpaces = 81;
     for (int i = 0; i < 9; i++)
     {
