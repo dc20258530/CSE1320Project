@@ -475,7 +475,7 @@ char checkMiniWinner(int *b1)
     return ' ';
 }
 
-char checkBigWinner()
+char checkBigWinner() // this function checks all sub-boards to see if there is a winner
 {
     if (board[0][2][2] != ' ' && board[0][2][2] == board[4][2][2] && 
         board[0][2][2] == board[8][2][2] && exclude[0] != '\0' && 
